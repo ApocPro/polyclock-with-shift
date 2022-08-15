@@ -57,13 +57,18 @@ private:
   const int GLACIAL_FACTORS[10] = {1,2,4,8,16,32,64,128,256,512};
   const int DIV_FACTORS_ARRAY[3][10] = {{SHORT_FACTORS}, {SLOTH_FACTORS}, {GLACIAL_FACTORS}};
   
-  // adding the switch Factors
+  // adding the DIV/MULT switch Factors
   const int DIV_MODE[3] = {SHORT, SLOTH, GLACIAL};
   const int MULT_MODE[3] = {1,2,3};
 
-  // original dividing factors
+  // new factors for the POLY mode 
+  const int NUMERATOR[10] = {2,3,4,5,6,7,9,11,13,15};
+  const int DENOMINATOR[3] = {4,8,16};
+
+  /* original dividing factors
   const int SIMPLE_FACTORS[10] = {1, 2, 4, 8, 16, 32, 64, 128, 256, 512}; 
   const int COMPLEX_FACTORS[10] = {1, 3, 5, 7, 11, 13, 17, 19, 23, 29};
+  */
 
 public:
   int mult_reading;
@@ -142,6 +147,7 @@ public:
   /**
    * Fetch the multiplication factor
    * Output clock frequency = input clock frequency * multiplication factor
+   * combined with the switch multiplier.
    * This value is controlled by the upper pot. We divide the pot's range
    * into NB_POT_SLICES slices, and then use those to look up a factor from
    * either simple_factors (powers of two) or complex_factors (prime numbers).
@@ -157,6 +163,7 @@ public:
   /**
    * Fetch the division factor
    * Output clock frequency = input clock frequency / division factor
+   * combined with switch which determines which range the divison factor should use.
    * This value is controlled by the middle pot. We divide the pot's range
    * into NB_POT_SLICES slices, and then use those to look up a factor from
    * either simple_factors (powers of two) or complex_factors (prime numbers).
@@ -195,8 +202,22 @@ private:
         return (SHORT_FACTORS[slice]*MULT_MODE[switch_slice]);
       }
     }
+    /*
+     The math of the Poly Mode is a little convoluted.  We are looking at
+     2 time signatures.  The time signature from Division pot and switch represent 
+     the input time signature. (I.e NUMERATOR[2]=4 and DENOMINATOR[0]=4 would be 4/4)
+     The time signature for the output time is the same but from the Mult pot. (I.e. 3/4)
+     So if we want to find the down beat of the input clock in 4/4 time we need to divide 
+     the input frequency by 4.  Now we determine the frequency of the output in 3/4 time 
+     by simply multiplying by 3.  But what if we want 4/4:3/8?  Basically this is double
+     4/4:3/4.  We solve this value by multiplying both frequencies by the Denominator as well.
+     Say 120 bpm in 4/4 and we want a frequency that would be 3/8 with the same downbeat.
+     120/(4*4)=7.5*(3*8)= 180 bpm.  Basically the denominator determines a .25x, .5x, 2x, or 4x 
+     factor of the final result, but we split the function in 2 parts that make it appear 
+     a little strange in the programming.
+     */
     elif(mode == MODE_POLY) {
-      return;
+      return (NUMERATOR[slice]*DENOMINATOR[switch_slice]);
     }
     // Euclidean Mode, still needs to be written
     else {
