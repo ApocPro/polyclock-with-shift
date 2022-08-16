@@ -22,7 +22,7 @@ This module runs on an Arduino (tested on an Arduino Nano). It expects four pote
 on the `CLOCK_IN` pin and has two trigger outputs - `SHIFTED_OUT` and `UNSHIFTED_OUT` (the latter
 identical but without the beatshift applied).
 
-I have added to this two on/off/on switches (pins `MULT_SWITCH` and `DIV_SWITCH` that add modifiers to the `get_mult` and `get_div` functions.  There are also an input clock throughput jack and a combined output jack that are completely electrically wired and not coded in the module.
+I have added to this two on/off/on switches (pins `MULT_SWITCH` and `DIV_SWITCH`) that add modifiers to the `get_mult` and `get_div` functions.  There are also an input clock throughput jack and a combined output jack that are completely electrically wired and not coded in the module.
 
 
 ## Operation
