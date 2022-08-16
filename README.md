@@ -1,10 +1,10 @@
 # Polyrhythm Clock Generator
 
 Clock Dividers have always been a staple of modular synthesis.  They have added complexity and nuance to many of the patches I have built, allowing for long delayed triggers to keep new things happening.
-These Clock Dividers are great, but the approach has always seemed to me to be mathematical rather than musical.  This is my attempt to make a clock divider that is based more on musical principles than mathematical ones (and thereby entailing even more math :) 
-The principle is based on Polyrhythms such as 3:4 or 5:3.  This is achieved by taking an input clock and setting what time signature that input clock is in so that we can find the downbeat and then subdividing that downbeat to match our new desired time signature.
+These Clock Dividers are great, but the approach has always seemed to me to be mathematical rather than musical.  This is my attempt to make a clock divider that is based more on musical principles than mathematical ones (and thereby entailing even more math :). 
+The principle is based on Polyrhythms such as 3:4 or 5:3.  This is achieved by taking an input clock, setting what time signature that input clock is in, so that we can find the downbeat, and then subdividing that downbeat to match our new desired time signature.
 
-I was in the process of building an coding, and having latency issues, when Look Mum No Computer published his [video about his master clock](https://www.youtube.com/watch?v=DT5CafrZyDw).  I had already been looking at ginky syntese grains code, and the patch that RohanM. did solved the a number of the problems that I was having.  90% of this code is based on their work and I simply added a few switches and changed the math to accomplish what I was trying to do.  All of the `class` building and `interrupts` are entirely their work and I am highly appreciative of them sharing their work:
+I was in the process of building and coding, and having latency issues, when Look Mum No Computer published his [video about his pendulum clock](https://www.youtube.com/watch?v=DT5CafrZyDw).  I had already been looking at ginky syntese grain's code. The patch that RohanM. did for LMNC solved a number of the problems that I was having.  90% of this code is based on their work and I simply added a few switches and changed the math to accomplish what I was trying to do.  All of the `class` building and `interrupts` are entirely their work and I am highly appreciative of them sharing their work:
 
 ## Clock multiplier / divider / beatshift
 
