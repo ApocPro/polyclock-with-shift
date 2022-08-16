@@ -22,13 +22,17 @@ This module runs on an Arduino (tested on an Arduino Nano). It expects four pote
 on the `CLOCK_IN` pin and has two trigger outputs - `SHIFTED_OUT` and `UNSHIFTED_OUT` (the latter
 identical but without the beatshift applied).
 
+I have added to this two on/off/on switches (pins `MULT_SWITCH` and `DIV_SWITCH` that add modifiers to the `get_mult` and `get_div` functions.  There are also an input clock throughput jack and a combined output jack that are completely electrically wired and not coded in the module.
+
 
 ## Operation
 
-The module can operate in two modes:
+The module can operate currently in two modes:
 
-- Simple mode: Multiplies or divides by factors of two (1, 2, 4, 8, 16, ...)
-- Complex mode: Multiplies or divides by prime numbers (1, 3, 5, 7, 11, ...)
+- MULT_DIV mode: Modifies the original SIMPLE mode and multiplies or divides by factors of two or more (1, 2, 4, 8, 16, ...)
+- POLY mode: Calculates the downbeat of the input clock based on the input time signature and subdivides(multiplies the downbeat by the output time signature
+- (I have two more in mind, but haven't fully realised them: TUPLET and EUCLIDEAN. There are some place holders in the code for these)
+
 
 The mode can be selected by moving the mode knob to the left or right side. A range of output
 tempos can be produced by combining multiplication and division, especially by using complex factors.
@@ -37,6 +41,7 @@ The beatshift knob can be used to delay the trigger from the beatshifted output 
 
 ## Changelog
 
+- 15-08-2022 Adapted by ApocPro for the addition of the Polyclock functionality
 - 24-10-2021 Reworked by Rohan Mitchell for easier multi/div changes between beats
 - 16-10-2021 Further changes to allow for longer gaps between incoming beats and logic to handle multi/div changes between beats for Look Mum No Computer
 - 11-9-2021 Adapted by Jesse Stevens of artist duo Cake Industries for Look Mum No Computer offbeat shift needs
